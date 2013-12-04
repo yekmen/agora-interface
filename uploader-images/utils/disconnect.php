@@ -1,7 +1,5 @@
 <?php
-if (!isset($__config_load)) {
-  include './config.php';
-}
+include_once './utils/location.php';
 
 function purge_connection()
 {
@@ -27,6 +25,5 @@ function purge_connection()
 function disconnect()
 {
   purge_connection();
-  header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/index.php');
-  exit;
+  location('index.php');
 }

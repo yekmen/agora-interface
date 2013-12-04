@@ -1,5 +1,6 @@
 <?php
 include './utils/connected.php';
+include_once './config.php';
 
 ///\attention directory name must not contain the chracters '.'
 function no_conflit_filename($dir, $filename) {
