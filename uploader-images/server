@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ../`dirname $0`
+php --php-ini /usr/share/php5/php.ini-development -S localhost:8000
