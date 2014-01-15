@@ -1,4 +1,3 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 
 Item{
@@ -24,31 +23,31 @@ Item{
         var ret;
         switch(iconID){
         case "01d": //soleil
-            ret = "qrc:/sun"
+            ret = "qrc:/soleil"
             break;
         case "02d": //soleil + nuage
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/soleilCloud"
             break;
         case "03d": //nuage
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/nuage"
             break;
         case "04d": //nuage
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/nuage"
             break;
         case "09d": //pluie
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/pluie"
             break;
         case "10d": //pluie
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/pluie"
             break;
         case "11d": //orage
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/orage"
             break;
         case "13d": //neige
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/neige"
             break;
         case "50d":     //brouillard
-            ret = "qrc:/sunCloud"
+            ret = "qrc:/fog"
             break;
         default:
 //            console.debug("Inconnu : " + iconID)
