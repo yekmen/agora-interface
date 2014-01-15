@@ -1,4 +1,5 @@
 <?php
+include './config.php';
 include './utils/connected.php';
 ?><!DOCTYPE html>
 <html>
