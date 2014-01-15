@@ -1,11 +1,12 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 
-Item {
+Rectangle {
     property int fontSize: 50
     property string nowTime: "12:10"
     width: 300
     height: 300
+    color: "black"
     function getTime(){
             return Qt.formatTime(new Date(), "hh:mm:ss")
     }

@@ -1,62 +1,67 @@
 import QtQuick 1.1
-
+import "../JSON"
+import "Delegate"
 Rectangle {
-    width: 100
-    height: 62
-    function prt(){
-        console.debug(xmlModel.get(0).temp)
-    }
-    Timer{
-        id: timer
-        interval: 1000; running: true; repeat: true;
-        onTriggered: {
-//            prt();
+    id: rectangle1
+    width: 600
+    height: 200
+    color: "black"
+//    Timer{
+//        id: timer
+//        interval: 1000; running: true; repeat: true;
+//        onTriggered: {
+////            prt();
+//        }
+//    }
+
+    JSONListModel{
+        id: jsonModel
+        source: "http://api.openweathermap.org/data/2.5/forecast/daily?q=Paris&mode=json&units=metric&cnt=3"
+        query: "$.list[*]"
+        onLoadingFinished: {
+            today.iconID = jsonModel.model.get(0).iconID
+            today.tempMin = jsonModel.model.get(0).tempMin
+            today.tempMax = jsonModel.model.get(0).tempMax
+            today.timestamp = jsonModel.model.get(0).JSON.dt
+
+            dayPlus1.iconID = jsonModel.model.get(1).iconID
+            dayPlus1.tempMin = jsonModel.model.get(1).tempMin
+            dayPlus1.tempMax = jsonModel.model.get(1).tempMax
+            dayPlus1.timestamp = jsonModel.model.get(1).JSON.dt
+
+            dayPlus2.iconID = jsonModel.model.get(2).iconID
+            dayPlus2.tempMin = jsonModel.model.get(2).tempMin
+            dayPlus2.tempMax = jsonModel.model.get(2).tempMax
+            dayPlus2.timestamp = jsonModel.model.get(2).JSON.dt
         }
     }
 
-    XmlListModel{
-        id: xmlModel
-        source: "http://weather.yahooapis.com/forecastrss?u=c&q=Paris&language=fr-FR"
-        query: "/rss/channel"
-        XmlRole { name: "url"; query: "image/url/string()" }
-        XmlRole { name: "title"; query: "title/string()" }
-        XmlRole { name: "temp"; query: "yweather/@temp/string()" }
+    WeatherDelegate{
+        id: today
+        width: 200
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
     }
-    ListView{
-        id: listView
-        anchors.fill: parent
-        model: xmlModel
-//        delegate: fluxDelegate
-        delegate: Rectangle{
-            id: mainRect
-            width: 100
-            height: 100
-            anchors.right: parent.right
-            anchors.left: parent.left
-            color: "transparent"
-            Image {
-                id: icon
-                height: 80
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                source: url
-            }
-            Text {
-                id: info
-                text: temp
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                verticalAlignment: Text.AlignVCenter
-                anchors.top: icon.bottom
-                anchors.topMargin: 0
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 14
-                color: "white"
-            }
-        }
+    WeatherDelegate{
+        id: dayPlus1
+        width: 200
+//        height: 100
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.left: today.right
+        anchors.leftMargin: 0
+    }
+    WeatherDelegate{
+        id: dayPlus2
+        width: 200
+//        height: 100
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.left: dayPlus1.right
+        anchors.leftMargin: 0
     }
 }

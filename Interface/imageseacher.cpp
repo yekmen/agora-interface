@@ -22,5 +22,5 @@ QList<QVariant> ImageSeacher::getImageList()
     }
     else
         qDebug() << "Folder not exist!";
-
+//    return listFileInfo;
 }

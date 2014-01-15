@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="grellon">Hail_Heavy.png</file>
+        <file>Night_Rain.png</file>
+        <file>Overcast.png</file>
+        <file alias="neigePluie">Sleet.png</file>
+        <file alias="sunPluie">Snow_Occasional.png</file>
+        <file alias="sun">Sunny.png</file>
+        <file alias="leverSoleil">Sunrise.png</file>
+        <file alias="neige">Thermometer_Snowflake.png</file>
+        <file alias="vent">Wind_Flag_Storm.png</file>
+        <file alias="sunCloud">sun_cloud.png</file>
+    </qresource>
+</RCC>

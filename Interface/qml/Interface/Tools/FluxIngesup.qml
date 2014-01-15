@@ -42,13 +42,13 @@ Rectangle {
          XmlRole { name: "description"; query: "description/string()" }
          XmlRole { name: "pubDate"; query: "pubDate/string()" }
          XmlRole { name: "author"; query: "author/string()" }
-         onProgressChanged: {
-             console.debug("[Acceuil] Progression ... " + progress)
-         }
+//         onProgressChanged: {
+//             console.debug("[Acceuil] Progression ... " + progress)
+//         }
      }
     Timer{
         id: timer
-        interval: 2000; running: true; repeat: true;
+        interval: 5000; running: true; repeat: true;    //On change la flux tous les 5 secondes
         onTriggered: {
             prt();
         }
