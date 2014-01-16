@@ -24,9 +24,9 @@ if (isset($_FILES['pictures']) && is_array($_FILES['pictures'])) {
       continue;
     }
     if ($error == UPLOAD_ERR_OK) {
-      $tmp_name = $_FILES['pictures']['name'][$key];
-      $name = $tmp_name;
-      if (false !== getimagesize(PATH_UPLOAD.$entry, $info)) {
+      $tmp_name = $_FILES['pictures']['tmp_name'][$key];
+      $name = $_FILES['pictures']['name'][$key];
+      if (false !== getimagesize($tmp_name, $info)) {
         $name = no_conflit_filename(PATH_UPLOAD, $name);
         move_uploaded_file($tmp_name, $name);
       }
