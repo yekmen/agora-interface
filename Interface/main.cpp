@@ -12,8 +12,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/Interface/main.qml"));
-
+//    viewer.setMainQmlFile(QLatin1String(":/file/qml/Interface/main.qml"));
+    viewer.setSource(QUrl("qrc:/file/qml/Interface/main.qml"));
 
     viewer.showExpanded();
 

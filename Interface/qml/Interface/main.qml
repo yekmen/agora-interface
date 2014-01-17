@@ -1,6 +1,8 @@
 // import QtQuick 1.0 // to target Maemo 5
 import QtQuick 1.1
 import "Tools"
+//import ":/file/qml/Interface/Tools"
+
 import ImageSearcher 1.0
 
 Rectangle {
@@ -132,6 +134,7 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
+        z:100
     }
 
     Horloge{
@@ -143,7 +146,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         fontSize: 100
         nowTime: getTime()
-        z:1
+        z:100
     }
     Date{
         id: date
@@ -155,25 +158,36 @@ Rectangle {
         anchors.topMargin: 0
         fontSize: 40
         nowDate: getDate()
-        z:1
+        z:100
     }
 
     FluxRSS{
-        id: fluxRss
-        x: 650
-        y: 0
-        width: 300
-        height: 200
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
+        id: fluxRssRATP
+        width: 400
+        height: 310
+        anchors.left: fluxInge.right
+        anchors.leftMargin: 5
+        anchors.top: date.bottom
+        anchors.topMargin: 30
+        titleName: "Info RATP"
 //        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
-//        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
+        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
 //        width: 300
 //        height: 300
     }
-
+//    FluxRSS{
+//        id: fluxRssGeek
+//        width: 300
+//        height: 200
+//        anchors.left: fluxInge.right
+//        anchors.leftMargin: 0
+//        anchors.top: fluxRssRATP.bottom
+//        anchors.topMargin: 0
+//        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
+////        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
+////        width: 300
+////        height: 300
+//    }
     FluxIngesup{
         id: fluxInge
         y: 200
@@ -181,7 +195,7 @@ Rectangle {
         anchors.top: date.bottom
         anchors.topMargin: 30
         z:0
-
+        titleName: "Info INGESUP"
 
 //        Rectangle{
 ////            width: 200

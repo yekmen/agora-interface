@@ -6,7 +6,7 @@ Rectangle{
     anchors.left: parent.left
     height: 100
     color: "black"
-    z:0
+    z:-100
     Rectangle{
         id: rectangle_title
         height: 22
@@ -69,16 +69,17 @@ Rectangle{
             else if(lenght > 900 && lenght < 1000)
                 mainRect.height = 320
             else if(lenght > 1000 && lenght < 1200)
-                mainRect.height = 350
+                mainRect.height = 330
             else if(lenght > 1200 && lenght < 1500)
-                mainRect.height = 400
+                mainRect.height = 380
             else
-                mainRect.height = 600
+                mainRect.height = 500
         }
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                console.debug("Taille !! " + contenu.text.length)
+//                console.debug("Taille !! " + contenu.text.length)
+                console.debug("Taille !! " + mainRect.height)
             }
         }
 

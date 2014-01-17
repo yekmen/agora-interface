@@ -1,13 +1,14 @@
 import QtQuick 1.1
 Rectangle{
     id: mainRect
-    z:2
+    z:50
     color: "black"
     width: 500
     height: 310
     border.color: "gray"
     radius: 10
     property int currentIndex: 0
+    property string titleName
     function slide(){
         listView.currentIndex = currentIndex;
         if(listView.count > currentIndex)
@@ -15,6 +16,32 @@ Rectangle{
         else
             currentIndex = 0;
     }
+    Rectangle{
+        id: titleRect
+        height: 30
+        anchors.top: parent.top
+        anchors.topMargin: -30
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        color: "black"
+        z:50
+        Text {
+            id: title
+            text: titleName
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+            opacity: 0.6
+        }
+    }
+
     Rectangle {
         id: fluxRect
         color: "black"
