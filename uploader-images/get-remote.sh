@@ -1,17 +1,19 @@
 #!/bin/sh
 
-# pre code pour la mise à jour à distance
+[ -z "$1" ] && echo "$0 [user@]hostname" >&2 && exit 1
 
-#sur le pc distant à rediriger vers le pc local (avec ssh ?)
-read nb_sec < "$fichier_epoch"
+dir="$(dirname "$0")"
+
+nb_sec=0
+[ -r "$dir/epoch" ] && read nb_sec < "$dir/epoch"
 
 current=$(date +'%s')
 
-find -maxdepth 1 -mmin -$(($nb_sec/60)) -mmin +$(($current/60)) \
+ssh "$1" "find -maxdepth 1 -mmin -$(($nb_sec/60)) -mmin +$(($current/60))" \
 | while read f
 do
 	#recuperer le fichier distant
-	ssh-cp "$f" image-uploader/
+	scp "$1:$f" "$dir/"image-uploader/
 done
 
-echo $current > "$fichier_epoch"
+echo $current > "$dir/epoch"
