@@ -8,4 +8,24 @@
         <file alias="soleilCloud">soleil_nuage.png</file>
         <file alias="nuage">nuage.png</file>
     </qresource>
+    <qresource prefix="/file">
+        <file>qml/Interface/main.qml</file>
+        <file>qml/Interface/Font/minimal.otf</file>
+        <file>qml/Interface/Font/Neou-Bold.otf</file>
+        <file>qml/Interface/Font/Neou-Bold.ttf</file>
+        <file>qml/Interface/Font/Neou-Thin.otf</file>
+        <file>qml/Interface/Font/Neou-Thin.ttf</file>
+        <file>qml/Interface/Font/OldSansBlack.ttf</file>
+        <file>qml/Interface/Font/OldSansBlackUnderline.ttf</file>
+        <file>qml/Interface/JSON/JSONListModel.qml</file>
+        <file>qml/Interface/JSON/jsonpath.js</file>
+        <file>qml/Interface/Tools/Date.qml</file>
+        <file>qml/Interface/Tools/Delegate.qml</file>
+        <file>qml/Interface/Tools/FluxIngesup.qml</file>
+        <file>qml/Interface/Tools/FluxRSS.qml</file>
+        <file>qml/Interface/Tools/Horloge.qml</file>
+        <file>qml/Interface/Tools/Weather.qml</file>
+        <file>qml/Interface/Tools/Delegate/RSSDelegate.qml</file>
+        <file>qml/Interface/Tools/Delegate/WeatherDelegate.qml</file>
+    </qresource>
 </RCC>

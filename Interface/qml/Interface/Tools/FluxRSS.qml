@@ -1,119 +1,98 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
-
-Rectangle {
-    id: fluxRect
-    color: "white"
-    width: 300
-    height: 300
-    state: "hide"
+import "Delegate"
+Rectangle{
+    id: mainRect
+    property string titleName
     property bool isHide: true
+    property int currentIndex: 0
+    property int timeOfSlide: 10000
+    property string sourceOfRSS
+    function slide(){
+        listView.currentIndex = currentIndex;
+        if(listView.count > currentIndex)
+            currentIndex++;
+        else
+            currentIndex = 0;
+    }
+    width: 400
+    height: 300
+    radius: 10
+    color: "black"
+    border.color: "gray"
+    border.width: 2
+    z:10
+    onSourceOfRSSChanged: {
+        xmlModel.reload();
+    }
     Component.onCompleted: {
         xmlModel.reload()
     }
-    function show(){
-        fluxRect.state = "show"
-        isHide = false;
-    }
-    function hide(){
-        fluxRect.state = "hide"
-        isHide = true;
-    }
-    function prt(){
-        console.debug(xmlModel.get(0).title)
-    }
-
-    XmlListModel{
-         id: xmlModel
-//         source: "http://feeds2.feedburner.com/LeJournalduGeek"
-         source: "http://weather.yahooapis.com/forecastrss?u=c&q=Paris&language=fr-FR"
-//         query: "/rss/channel/item/"
-         query: "/rss/channel"
-         XmlRole { name: "image/url"; query: "url/string()" }
-         XmlRole { name: "title"; query: "title/string()" }
-//         XmlRole { name: "description"; query: "description/string()" }
-         onProgressChanged: {
-             console.debug("[Acceuil] Progression ... " + progress)
-         }
-     }
-    Timer{
-        id: timer
-        interval: 1000; running: true; repeat: true;
-        onTriggered: {
-//            prt();
-        }
-    }
-
-    ListView{
-        id: listView
-        anchors.fill: parent
-        model: xmlModel
-//        delegate: fluxDelegate
-        delegate: Rectangle{
-            id: mainRect
+    Rectangle{
+        id: titleRect
+        height: 30
+        anchors.top: parent.top
+        anchors.topMargin: -30
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        color: "black"
+        z:50
+        Text {
+            id: title
             anchors.right: parent.right
+            anchors.rightMargin: 0
             anchors.left: parent.left
-            color: "transparent"
-            Rectangle{
-                id: rectangle_title
-                height: 22
-                color: "#db667c"
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 1
-                opacity: 0.6
-                Text {
-                    id: title
-                    text: titre
-                    font.pixelSize: 15
-                    font.bold: true
-                }
-                Text {
-                    id: info
-                    x: 292
-                    text: pubDate
-                    verticalAlignment: Text.AlignVCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 14
-                }
-                MouseArea{
-                    id: mouse
-                    anchors.fill: parent
-                    onClicked: console.debug("toto")
-                }
-            }
+            anchors.leftMargin: 0
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+            text: titleName
+            opacity: 0.6
         }
     }
-    //Déclaration des machines à états
-    states: [
-        State {
-            name: "hide"
-            PropertyChanges {
-                target: fluxRect
-                anchors.leftMargin: -fluxRect.width
+    Rectangle {
+        id: fluxRect
+        color: "black"
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+        anchors.bottomMargin: 10
+        anchors.topMargin: 10
+        anchors.fill: parent
+        XmlListModel{
+            id: xmlModel
+            source: sourceOfRSS
+            query: "/rss/channel/item"
+            namespaceDeclarations: "declare namespace content=\"http://purl.org/rss/1.0/modules/content/\";"
+            XmlRole { name: "pubDate"; query: "pubDate/string()" }
+            XmlRole { name: "titre"; query: "title/string()" }
+            XmlRole { name: "description"; query: "description/string()" }
+            XmlRole { name: "detail"; query: "content:encoded/string()" }
+            onProgressChanged: {
+                console.debug("[Acceuil] Progression ... " + progress)
             }
-        },
-        State {
-            name: "show"
-            PropertyChanges {
-                target: fluxRect
-                anchors.leftMargin: fluxRect.width
+        }
+        Timer{
+            id: timer
+            interval: 2000; running: true; repeat: true;
+            onTriggered: {
+                slide();
             }
         }
 
-    ]
-    transitions: [
-        Transition {
-            from: "*"
-            to: "*"
-            PropertyAnimation{properties: "anchors.leftMargin"; duration: 1000; easing.type: Easing.OutExpo}
+        ListView{
+            id: listView
+            anchors.fill: parent
+            model: xmlModel
+            z:0
+            focus: true
+            delegate: RSSDelegate{
+            }
         }
-    ]
+
+    }
 }
+
+

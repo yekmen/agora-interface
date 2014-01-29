@@ -1,93 +1,93 @@
 import QtQuick 1.1
-Rectangle {
-    id: fluxRect
-    color: "white"
-    width: 300
-    height: 300
-    state: "hide"
-    z:1
-    property bool isHide: true
+Rectangle{
+    id: mainRect
+    z:50
+    color: "black"
+    width: 500
+    height: 310
+    border.color: "gray"
+    radius: 10
     property int currentIndex: 0
-    Component.onCompleted: {
-        xmlModel.reload()
-    }
-    function show(){
-        fluxRect.state = "show"
-        isHide = false;
-    }
-    function hide(){
-        fluxRect.state = "hide"
-        isHide = true;
-    }
-    function prt(){
-//        console.debug(xmlModel.get(0).title)
+    property string titleName
+    function slide(){
         listView.currentIndex = currentIndex;
         if(listView.count > currentIndex)
             currentIndex++;
         else
             currentIndex = 0;
     }
-    FontLoader {
-        id: myFont
-//        source: "../Font/minimal.otf"
-    }
-
-    XmlListModel{
-         id: xmlModel
-//         source: "http://feeds2.feedburner.com/LeJournalduGeek"
-         source: "http://www.ingesup.com/ecole/news/?format=feed&amp;type=rss"
-         query: "/rss/channel/item"
-         XmlRole { name: "image/url"; query: "url/string()" }
-         XmlRole { name: "titre"; query: "title/string()" }
-         XmlRole { name: "description"; query: "description/string()" }
-         XmlRole { name: "pubDate"; query: "pubDate/string()" }
-         XmlRole { name: "author"; query: "author/string()" }
-//         onProgressChanged: {
-//             console.debug("[Acceuil] Progression ... " + progress)
-//         }
-     }
-    Timer{
-        id: timer
-        interval: 5000; running: true; repeat: true;    //On change la flux tous les 5 secondes
-        onTriggered: {
-            prt();
+    Rectangle{
+        id: titleRect
+        height: 30
+        anchors.top: parent.top
+        anchors.topMargin: -30
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        color: "black"
+        z:50
+        Text {
+            id: title
+            text: titleName
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+            opacity: 0.6
         }
     }
-    Delegate{
-        id: delegate
-    }
 
-    ListView{
-        id: listView
+    Rectangle {
+        id: fluxRect
+        color: "black"
+        anchors.bottomMargin: 10
+        anchors.rightMargin: 10
+        anchors.leftMargin: 10
+        anchors.topMargin: 10
         anchors.fill: parent
-        model: xmlModel
-        delegate: delegate
-        z:0
+//        width: parent.width -10
+//        height: parent.height -10
+        z:1
+
+
+        Component.onCompleted: {
+            xmlModel.reload()
+        }
+
+        XmlListModel{
+            id: xmlModel
+            source: "http://www.ingesup.com/ecole/news/?format=feed&amp;type=rss"
+            query: "/rss/channel/item"
+            XmlRole { name: "image/url"; query: "url/string()" }
+            XmlRole { name: "titre"; query: "title/string()" }
+            XmlRole { name: "description"; query: "description/string()" }
+            XmlRole { name: "pubDate"; query: "pubDate/string()" }
+            XmlRole { name: "author"; query: "author/string()" }
+
+        }
+        Timer{
+            id: timer
+            interval: 1000; running: true; repeat: true;
+            onTriggered: {
+                slide();
+            }
+        }
+        ListView{
+            id: listView
+            snapMode: ListView.SnapOneItem
+            anchors.fill: parent
+            model: xmlModel
+            z:0
+            delegate: Delegate{
+                id: delegate
+            }
+        }
+
+
     }
-
-    //Déclaration des machines à états
-    states: [
-        State {
-            name: "hide"
-            PropertyChanges {
-                target: fluxRect
-                anchors.leftMargin: -fluxRect.width
-            }
-        },
-        State {
-            name: "show"
-            PropertyChanges {
-                target: fluxRect
-                anchors.leftMargin: fluxRect.width
-            }
-        }
-
-    ]
-    transitions: [
-        Transition {
-            from: "*"
-            to: "*"
-            PropertyAnimation{properties: "anchors.leftMargin"; duration: 1000; easing.type: Easing.OutExpo}
-        }
-    ]
 }

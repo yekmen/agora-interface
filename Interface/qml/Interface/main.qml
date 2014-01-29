@@ -1,15 +1,17 @@
 // import QtQuick 1.0 // to target Maemo 5
 import QtQuick 1.1
 import "Tools"
+//import ":/file/qml/Interface/Tools"
+
 import ImageSearcher 1.0
 
 Rectangle {
     id: rectangle1
+//    width: 1920
+//    height: 1080
     width: 1024
     height: 768
-    //On charge la police
     color: "black"
-
     function checkDate(){
         //Check date evry day
         //cmp var
@@ -17,9 +19,11 @@ Rectangle {
         var str2 = new String( "00:00:00" );
 
 //        console.debug("GetTime = " + horloge.getTime())
+        //------------ NEW DAY ----------------//
         if(!str1.localeCompare( str2 )){
             //If time get 00:00:00 update date
             date.setDate();
+            weather.update();
         }
     }
     function timestampConverter(time){
@@ -130,6 +134,7 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
+        z:100
     }
 
     Horloge{
@@ -137,49 +142,84 @@ Rectangle {
         height: 100
         anchors.top: parent.top
         anchors.topMargin: 0
-        width: 600
+        width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
         fontSize: 100
         nowTime: getTime()
-        z:1
+        z:100
     }
     Date{
         id: date
-        width: 600
+//        width: 600
+        width: parent.width
         height: 100
         anchors.horizontalCenter: horloge.horizontalCenter
         anchors.top: horloge.bottom
         anchors.topMargin: 0
         fontSize: 40
         nowDate: getDate()
-        z:1
+        z:100
     }
-//    FluxRSS{
-//        id: fluxRss
+
+    FluxRSS{
+        id: fluxRssRATP
+        width: 400
+        height: 310
+        anchors.left: fluxInge.right
+        anchors.leftMargin: 5
+        anchors.top: date.bottom
+        anchors.topMargin: 30
+        titleName: "Info RATP"
+//        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
+        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
 //        width: 300
 //        height: 300
-//        anchors.left: parent.left
+    }
+//    FluxRSS{
+//        id: fluxRssGeek
+//        width: 300
+//        height: 200
+//        anchors.left: fluxInge.right
 //        anchors.leftMargin: 0
+//        anchors.top: fluxRssRATP.bottom
+//        anchors.topMargin: 0
+//        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
+////        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
+////        width: 300
+////        height: 300
 //    }
     FluxIngesup{
         id: fluxInge
-        x: 350
+        y: 200
         width: 500
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: 200
+        anchors.top: date.bottom
+        anchors.topMargin: 30
         z:0
+        titleName: "Info INGESUP"
+
+//        Rectangle{
+////            width: 200
+//            height: 30
+//            anchors.top: parent.top
+//            anchors.topMargin: -30
+//            anchors.left: parent.left
+//            anchors.leftMargin: 0
+//            anchors.right: parent.right
+//            color: "black"
+//            Text {
+//                id: infoIngesup
+//                anchors.fill: parent
+//                text: qsTr("Information INGESUP")
+//                font.family: fontIngesup.name
+//                color: "white"
+//            }
+//            FontLoader {
+//                id: fontIngesup
+//                source: "Font/OldSansBlack.ttf"
+//            }
+//        }
     }
 
-//    MouseArea {
-//        anchors.fill: parent
-//        onClicked: {
-//            if(fluxRss.isHide)
-//                fluxRss.show()
-//            else
-//                fluxRss.hide()
-//        }
-//    }
     Timer{
         id: timer
 //        interval: 60000; running: true; repeat: true;
