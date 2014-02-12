@@ -20,7 +20,7 @@ if ($handle = opendir(PATH_UPLOAD)) {
     if ($entry === '.' || $entry === '..') {
       continue;
     }
-    echo '<figure><img src="'.DIR_ROOT.DIR_UPLOAD.$entry.'" alt=""><figcaption>'.$entry.'</figcaption></figure>';
+    echo '<figure><img src="'.DIR_UPLOAD.'/'.$entry.'" alt=""><figcaption>'.$entry.'</figcaption></figure>';
   }
 }
 ?>

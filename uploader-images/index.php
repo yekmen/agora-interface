@@ -5,7 +5,7 @@ if (isset($_POST['pseudo'], $_POST['password'])) {
   purge_connection();
   session_start();
   $_SESSION['Ok'] = 'Ok';
-  location('upload.php');
+  location('/upload.php');
 }
 ?><!DOCTYPE html>
 <html>
