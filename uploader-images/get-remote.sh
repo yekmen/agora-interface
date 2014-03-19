@@ -11,8 +11,7 @@ current=$(date +'%s')
 
 tmp=/tmp/$$-$RAND
 
-# ssh "$1" "find -maxdepth 1 -mmin -$(($nb_sec/60)) -mmin +$(($current/60))" -type f
-ssh "$1" "find '$2' -maxdepth 1 -mmin -$(($nb_sec/60))" -type f \
+ssh "$1" "find '$2' -maxdepth 1 -mmin -$(($nb_sec/60)) -mmin +$(($current/60))" -type f \
 | while read f
 do
   echo "$1:$f"
