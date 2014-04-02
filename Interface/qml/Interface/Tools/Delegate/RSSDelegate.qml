@@ -7,6 +7,7 @@ Rectangle{
     height: 100
     color: "black"
     z:-100
+
     Rectangle{
         id: rectangle_title
         height: 22

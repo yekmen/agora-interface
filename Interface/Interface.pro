@@ -7,7 +7,7 @@ QML_IMPORT_PATH =
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
- CONFIG += xml quick
+CONFIG += xml quick webkit
 # MOBILITY +=
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
@@ -20,7 +20,8 @@ SOURCES += main.cpp \
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
-
+#include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+#qtcAddDeployment()
 HEADERS += \
     imageseacher.h
 

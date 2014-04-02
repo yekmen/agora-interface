@@ -27,5 +27,7 @@
         <file>qml/Interface/Tools/Weather.qml</file>
         <file>qml/Interface/Tools/Delegate/RSSDelegate.qml</file>
         <file>qml/Interface/Tools/Delegate/WeatherDelegate.qml</file>
+        <file>qml/Interface/Tools/DateTime.qml</file>
+        <file>qml/Interface/Tools/ImageViewer.qml</file>
     </qresource>
 </RCC>

@@ -3,8 +3,6 @@ import QtQuick 1.1
 import "Tools"
 //import ":/file/qml/Interface/Tools"
 
-import ImageSearcher 1.0
-
 Rectangle {
     id: rectangle1
 //    width: 1920
@@ -12,20 +10,7 @@ Rectangle {
     width: 1024
     height: 768
     color: "black"
-    function checkDate(){
-        //Check date evry day
-        //cmp var
-        var str1 = new String(horloge.getTime());
-        var str2 = new String( "00:00:00" );
-
-//        console.debug("GetTime = " + horloge.getTime())
-        //------------ NEW DAY ----------------//
-        if(!str1.localeCompare( str2 )){
-            //If time get 00:00:00 update date
-            date.setDate();
-            weather.update();
-        }
-    }
+    state: "default"
     function timestampConverter(time){
         var ret;
         var date = new Date(time*1000);
@@ -117,19 +102,8 @@ Rectangle {
         return formattedDate;
     }
 
-    function setTime(){
-        checkDate();
-        horloge.nowTime = horloge.getTime();
-    }
-    ImageSearcher{
-        id: imageSearcher
-    }
-
     Weather{
         id: weather
-//        width: 200
-//        height: 200
-//        color: "#00000000"
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.bottom: parent.bottom
@@ -137,95 +111,115 @@ Rectangle {
         z:100
     }
 
-    Horloge{
-        id: horloge
-        height: 100
+    DateTime{
+        id: dateTime
+        height: 200
+        width: parent.width
         anchors.top: parent.top
         anchors.topMargin: 0
-        width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
-        fontSize: 100
-        nowTime: getTime()
-        z:100
-    }
-    Date{
-        id: date
-//        width: 600
-        width: parent.width
-        height: 100
-        anchors.horizontalCenter: horloge.horizontalCenter
-        anchors.top: horloge.bottom
-        anchors.topMargin: 0
-        fontSize: 40
-        nowDate: getDate()
         z:100
     }
 
     FluxRSS{
         id: fluxRssRATP
+        x: 501
+        y: 200
         width: 400
         height: 310
         anchors.left: fluxInge.right
-        anchors.leftMargin: 5
-        anchors.top: date.bottom
+        anchors.leftMargin: 10
+        anchors.top: dateTime.bottom
         anchors.topMargin: 30
         titleName: "Info RATP"
 //        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
         sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
-//        width: 300
-//        height: 300
     }
-//    FluxRSS{
-//        id: fluxRssGeek
-//        width: 300
-//        height: 200
-//        anchors.left: fluxInge.right
-//        anchors.leftMargin: 0
-//        anchors.top: fluxRssRATP.bottom
-//        anchors.topMargin: 0
-//        sourceOfRSS: "http://feeds2.feedburner.com/LeJournalduGeek"
-////        sourceOfRSS: "http://vianavigo.com/fr/actualites-trafic/rss-vianavigo-vos-transports-en-commun-en-ile-de-france-optile-ratp-sncf/?type=102"
-////        width: 300
-////        height: 300
-//    }
+
     FluxIngesup{
         id: fluxInge
-        y: 200
         width: 500
-        anchors.top: date.bottom
+        anchors.top: dateTime.bottom
         anchors.topMargin: 30
         z:0
         titleName: "Info INGESUP"
-
-//        Rectangle{
-////            width: 200
-//            height: 30
-//            anchors.top: parent.top
-//            anchors.topMargin: -30
-//            anchors.left: parent.left
-//            anchors.leftMargin: 0
-//            anchors.right: parent.right
-//            color: "black"
-//            Text {
-//                id: infoIngesup
-//                anchors.fill: parent
-//                text: qsTr("Information INGESUP")
-//                font.family: fontIngesup.name
-//                color: "white"
-//            }
-//            FontLoader {
-//                id: fontIngesup
-//                source: "Font/OldSansBlack.ttf"
-//            }
-//        }
     }
 
-    Timer{
-        id: timer
-//        interval: 60000; running: true; repeat: true;
-        interval: 1000; running: true; repeat: true;
-        onTriggered: {
-            setTime();
+    ImageViewer{
+        id: imageViewer
+        visible: false
+    }
+
+    states: [
+        State {
+            name: "image"
+            PropertyChanges {
+                target: weather
+                opacity: 0
+                color: "black"
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+            }
+            PropertyChanges {
+                target: fluxRssRATP
+                opacity: 1
+
+            }
+            PropertyChanges {
+                target: fluxInge
+                opacity: 0
+            }
+            PropertyChanges {
+                target: imageViewer
+                opacity: 0
+                visible: true
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+            }
+            PropertyChanges {
+                target:dateTime
+//                opacity: 0
+                height: 200
+                width: parent.width
+
+                visible: true
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                z:100
+            }
+
+        },
+        State {
+            name: "default"
+            PropertyChanges {
+                target: weather
+                opacity: 1
+            }
+            PropertyChanges {
+                target: fluxRssRATP
+                opacity: 1
+            }
+            PropertyChanges {
+                target: fluxInge
+                opacity: 1
+            }
+            PropertyChanges {
+                target: imageViewer
+//                opacity: 1
+                visible: false
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
         }
-    }
+    ]
+
+
 }
