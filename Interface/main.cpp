@@ -8,7 +8,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     QmlApplicationViewer viewer;
-    qmlRegisterType<ImageSeacher>("ImageSearcher", 1, 0, "ImageSearcher");
+//    qmlRegisterType<ImageSeacher>("ImageSearcher", 1, 0, "ImageSearcher");
 
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
