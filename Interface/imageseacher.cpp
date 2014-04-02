@@ -8,19 +8,19 @@ ImageSeacher::ImageSeacher(QObject *parent) :
 
 QList<QVariant> ImageSeacher::getImageList()
 {
-    QDir dir;
-    QFileInfoList listFileInfo;
-    QStringList filter;
-    filter << "*.jpg"
-           << "*.png";
+//    QDir dir;
+//    QFileInfoList listFileInfo;
+//    QStringList filter;
+//    filter << "*.jpg"
+//           << "*.png";
 
-//    if(dir.cd("/home/pi/image")){
-    if(dir.cd("/home/yekmen/Images")){
-        qDebug() << " ------ Folder is exist! ------- ";
-        listFileInfo = dir.entryInfoList(filter,QDir::Files);
-        qDebug() << listFileInfo.size() << " items founds";
-    }
-    else
-        qDebug() << "Folder not exist!";
+////    if(dir.cd("/home/pi/image")){
+//    if(dir.cd("/home/yekmen/Images")){
+//        qDebug() << " ------ Folder is exist! ------- ";
+//        listFileInfo = dir.entryInfoList(filter,QDir::Files);
+//        qDebug() << listFileInfo.size() << " items founds";
+//    }
+//    else
+//        qDebug() << "Folder not exist!";
 //    return listFileInfo;
 }
