@@ -1,10 +1,8 @@
 <?php
 $__config_load = true;
 
-define('SYSTEM_DIR_ROOT', __DIR__.'/');
-define('DIR_ROOT', substr(__DIR__, strrpos(__DIR__, '/')).'/');
-// chown(__DIR__);
-define('DIR_UPLOAD', 'upload-images/');
+define('SYSTEM_DIR_ROOT', __DIR__);
+define('DIR_UPLOAD', '/upload-images');
 define('PATH_UPLOAD', __DIR__.'/'.DIR_UPLOAD);
 
 header('Content-Type: text/html; charset=utf-8');

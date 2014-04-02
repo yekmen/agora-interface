@@ -27,7 +27,7 @@ if (isset($_FILES['pictures']) && is_array($_FILES['pictures'])) {
       $tmp_name = $_FILES['pictures']['tmp_name'][$key];
       $name = $_FILES['pictures']['name'][$key];
       if (false !== getimagesize($tmp_name, $info)) {
-        $name = no_conflit_filename(PATH_UPLOAD, $name);
+        $name = no_conflit_filename(PATH_UPLOAD.'/', $name);
         move_uploaded_file($tmp_name, $name);
       }
       else {
@@ -67,7 +67,7 @@ function error_file($uppload_err)
 }
 
 foreach ($iderr as $id) {
-  echo '<p> Le fichier "'.htmlentities($_FILES["pictures"]).'" n\'a pu être enregistré. '.error_file($_FILES['pictures']['error'][$id]).'.</p>';
+  echo '<p> Le fichier "'.htmlentities($_FILES["pictures"]['name'][$id]).'" n\'a pu être enregistré. '.error_file($_FILES['pictures']['error'][$id]).'.</p>';
 }
 
 $max_file_size = ini_get('upload_max_filesize');

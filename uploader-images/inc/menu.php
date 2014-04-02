@@ -4,15 +4,15 @@ function show_menu($file, $text) {
     echo '<li class="selected-page"><a href="'.$file.'">'.$text.'</a></li>';
   }
   else {
-    echo '<li><a href="'.DIR_ROOT.$file.'">'.$text.'</a></li>';
+    echo '<li><a href="'.$file.'">'.$text.'</a></li>';
   }
 }
 ?>
 
 <nav>
   <ul><?php
-    show_menu('disconnect.php', 'Déconnection');
-    show_menu('upload.php', 'Upload');
-    show_menu('viewer.php', 'Visionneuse');
+    show_menu('/disconnect.php', 'Déconnection');
+    show_menu('/upload.php', 'Upload');
+    show_menu('/viewer.php', 'Visionneuse');
   ?></ul>
 </nav>
